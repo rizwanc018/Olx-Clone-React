@@ -1,19 +1,40 @@
 import React, { useState } from 'react';
-
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import Logo from '../../olx-logo.png';
 import './Signup.css';
+import { auth, db } from '../../firebase/config';
+import { addDoc, collection } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
-const [Username, setUsername] = useState('')
-const [Email, setEmail] = useState('')
-const [Phone, setPhone] = useState('')
-const [Password, setPassword] = useState('')
-console.log(Username);
+  const navigate = useNavigate()
+
+  const [Username, setUsername] = useState('')
+  const [Email, setEmail] = useState('')
+  const [Phone, setPhone] = useState('')
+  const [Password, setPassword] = useState('')
+
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault()
+      const { user } = await createUserWithEmailAndPassword(auth, Email, Password)
+      await updateProfile(user, { displayName: Username })
+      await addDoc(collection(db, 'users'), {
+        id: user.uid,
+        username: Username,
+        phone: Phone
+      })
+      navigate('/login')
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
     <div>
       <div className="signupParentDiv">
         <img width="200px" height="200px" src={Logo}></img>
-        <form>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="fname">Username</label>
           <br />
           <input
@@ -33,8 +54,8 @@ console.log(Username);
             type="email"
             id="fname"
             name="email"
-            value={Phone}
-            onChange={e => setPhone(e.target.value)}
+            value={Email}
+            onChange={e => setEmail(e.target.value)}
             defaultValue=""
           />
           <br />
@@ -45,8 +66,8 @@ console.log(Username);
             type="number"
             id="lname"
             name="phone"
-            value={Email}
-            onChange={e => setEmail(e.target.value)}
+            value={Phone}
+            onChange={e => setPhone(e.target.value)}
             defaultValue=""
           />
           <br />
