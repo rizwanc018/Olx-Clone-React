@@ -1,47 +1,34 @@
-// import React, { useEffect } from 'react';
-// import './App.css';
-// import Signup from './Pages/Signup'
-// import Home from './Pages/Home'
-// import Login from './Pages/Login'
-// import { Route, Routes } from 'react-router-dom';
-
-// function App() {
-
-//   return (
-//     <div>
-//       <Routes>
-//         <Route path='/' element={<Home />} />
-//         <Route path='/signup' element={<Signup />} />
-//         <Route path='/login' element={<Login />} />
-//       </Routes>
-//     </div>
-//   );
-// }
-
-// export default App;
 import React, { useEffect, useContext } from 'react';
 import './App.css';
 import Signup from './Pages/Signup'
 import Home from './Pages/Home'
 import Login from './Pages/Login'
-import { Route, Routes } from 'react-router-dom';
+import Create from './Pages/Create'
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { AuthContext } from './store/context';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase/config';
 
 function App() {
-  const { user } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
+  const location  = useLocation()
 
-  useEffect(() => {
-    console.log('>>>>>>>>>>>>>>', user); // Access the value of user and log it to the console
+  useEffect( () => {
+     onAuthStateChanged(auth, (user) => {
+      if(user) setUser(user)
+    })
   });
- 
+
 
   return (
     <div>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/login' element={<Login />} />
-        </Routes>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/signup' element={<Signup />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/create' element={<Create />} />
+
+      </Routes>
     </div>
   );
 }
