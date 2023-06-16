@@ -20,9 +20,7 @@ function Header() {
     onAuthStateChanged(auth, (user) => {
       setUser(user)
     })
-  });
-
-
+  }, [user]);
 
   return (
     <div className="headerParentDiv">
@@ -51,7 +49,9 @@ function Header() {
           <Arrow></Arrow>
         </div>
         <div className="loginPage">
-          <span>{user ? user?.displayName : 'Login'}</span>
+          {user ? <span>{user?.displayName}</span> :
+            <span onClick={()=>navigate('/login')}>Login</span>
+          }
           <hr />
         </div>
         {
@@ -62,7 +62,7 @@ function Header() {
             }}
           >Logout</span>
         }
-        <div className="sellMenu">
+        <div className="sellMenu" onClick={() => navigate('/create')}>
           <SellButton></SellButton>
           <div className="sellMenuContent">
             <SellButtonPlus></SellButtonPlus>

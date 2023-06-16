@@ -8,27 +8,31 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import { AuthContext } from './store/context';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/config';
+import View from './Pages/ViewPost'
+import Post from './store/PostContext';
 
 function App() {
   const { setUser } = useContext(AuthContext);
-  const location  = useLocation()
+  const location = useLocation()
 
-  useEffect( () => {
-     onAuthStateChanged(auth, (user) => {
-      if(user) setUser(user)
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) setUser(user)
     })
   });
 
 
   return (
     <div>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/create' element={<Create />} />
-
-      </Routes>
+      <Post>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/create' element={<Create />} />
+          <Route path='/view' element={<View />} />
+        </Routes>
+      </Post>
     </div>
   );
 }

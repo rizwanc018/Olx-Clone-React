@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import Header from '../Components/Header/Header'
 import View from '../Components/View/View'
 
-function ViewPost(props) {
+
+function ViewPost() {
+
+
     return (
         <div>
             <Header />
-            <View/>
+            <View />
         </div>
     )
 }

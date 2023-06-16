@@ -30,6 +30,7 @@ const Create = () => {
         userId: user.uid,
         createdAt: date.toDateString()
       });
+      console.log("🚀 ~ file: Create.jsx:33 ~ res ~ res:", res)
     } catch (error) {
       console.error(error);
     }

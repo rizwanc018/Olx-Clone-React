@@ -5,12 +5,16 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App.jsx'
 import './index.css'
 import Context from './store/context.jsx';
+// import Post from './store/PostContext';
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <Context>
-        <App />
+        {/* <Post> */}
+          <App />
+        {/* </Post> */}
       </Context>
     </BrowserRouter>
   </React.StrictMode>,
