@@ -7,7 +7,6 @@ import './View.css';
 function View() {
 
   const [userDetails, setUserDetails] = useState()
-  console.log("🚀 ~ file: View.jsx:10 ~ View ~ userDetails:", userDetails)
   const { postDetails } = useContext(PostContext)
 
   const getPostDetails = async () => {
@@ -41,8 +40,8 @@ function View() {
         </div>
         <div className="contactDetails">
           <p>Seller details</p>
-          <p>{userDetails.username}</p>
-          <p>{userDetails.phone}</p>
+          <p>{userDetails?.username}</p>
+          <p>{userDetails?.phone}</p>
         </div>
       </div>
     </div>

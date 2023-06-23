@@ -4,7 +4,7 @@ import Logo from '../../olx-logo.png';
 import './Login.css';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase/config';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Login() {
   const navigate = useNavigate()
@@ -54,7 +54,7 @@ function Login() {
           <br />
           <button>Login</button>
         </form>
-        <a>Signup</a>
+        <Link to='/signup'>Signup</Link>
       </div>
     </div>
   );
